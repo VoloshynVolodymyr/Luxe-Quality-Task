@@ -4,8 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "wdio": "wdio run ./wdio.conf.js"
+    "login": "npx wdio run ./wdio.conf.js --spec login.js",
+    "checkout": "npx wdio run ./wdio.conf.js --spec checkout.js",
+    "logout": "npx wdio run ./wdio.conf.js --spec logout.js",
+    "social": "npx wdio run ./wdio.conf.js --spec social.js",
+    "sorting": "npx wdio run ./wdio.conf.js --spec sorting.js",
+    "test": "wdio run ./wdio.conf.js"
   },
   "keywords": [],
   "author": "",

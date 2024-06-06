@@ -1,16 +1,40 @@
 const Page = require('./page');
 
 class LoginPage extends Page {
-    get inputUsername() {
-        return $('#user-name');
+    get userNameInput() {
+        return $("//input[@id='user-name']");
     }
 
-    get inputPassword() {
-        return $('#password');
+    async setUserName(username) {
+        await this.userNameInput.setValue(username);
+    }
+
+    get passwordInput() {
+        return $("//input[@id='password']");
+    }
+
+    async setPassword(password) {
+        await this.passwordInput.setValue(password);
     }
 
     get btnSubmit() {
-        return $('#login-button');
+        return $("//input[@id='login-button']");
+    }
+
+    async btnSubmitClick() {
+        await this.btnSubmit.click();
+    }
+
+    get firstIcon() {
+        return $("(//*[@aria-hidden='true'])[1]")
+    }
+
+    get secondIcon() {
+        return $("(//*[@aria-hidden='true'])[2]")
+    }
+
+    get errorMessageField() {
+        return $("//h3[@data-test='error']")
     }
 
     async waitUntilRedirectedToInventoryPage() {
@@ -27,21 +51,20 @@ class LoginPage extends Page {
             }
         );
     }
-
-    async login(username, password) {
-        await (await this.inputUsername).waitForExist({ timeout: 5000 });
-        await this.inputUsername.setValue(username);
-
-        await (await this.inputPassword).waitForExist({ timeout: 5000 });
-        await this.inputPassword.setValue(password);
-
-        await (await this.btnSubmit).waitForExist({ timeout: 5000 });
-        await this.btnSubmit.click();
-    }
-
+    
+    
     open() {
         return super.open('');
     }
+
+
+    async validLogin() {
+        await this.setUserName('standard_user');
+        await this.setPassword('secret_sauce');
+        await this.btnSubmitClick();
+        await this.waitUntilRedirectedToInventoryPage();
+    }
 }
 
-module.exports = new LoginPage();
+module.exports = LoginPage;
+
